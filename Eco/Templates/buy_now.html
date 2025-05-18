@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Buy Now</h2>
+
+<div class="card mb-4">
+    <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" class="card-img-top" style="max-height: 300px;">
+    <div class="card-body">
+        <h5 class="card-title">{{ product.title }}</h5>
+        <p class="card-text"><strong>Price:</strong> ₹{{ product.price }}</p>
+        <p class="card-text"><strong>Description:</strong> {{ product.description }}</p>
+        <p class="card-text"><strong>Location:</strong> {{ product.location }}</p>
+        <hr>
+        <p><em>Payment functionality coming soon...</em></p>
+        <a href="/" class="btn btn-success">Confirm Purchase</a>
+        <a href="/cart" class="btn btn-secondary">Back to Cart</a>
+    </div>
+</div>
+{% endblock %}

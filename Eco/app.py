@@ -129,6 +129,31 @@ def remove_from_cart(item_id):
     db.session.commit()
     return redirect('/cart')
 
+@app.route('/buy/<int:product_id>')
+def buy_now(product_id):
+    if 'user_id' not in session:
+        return redirect('/login')
+    
+    product = Product.query.get_or_404(product_id)
+    return render_template('buy_now.html', product=product)
+
+@app.route('/delete_product/<int:product_id>', methods=['POST'])
+def delete_product(product_id):
+    if 'user_id' not in session:
+        return redirect('/login')
+    
+    product = Product.query.get_or_404(product_id)
+    
+    if product.owner_id != session['user_id']:
+        return "Unauthorized", 403
+
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], product.image)
+    if os.path.exists(image_path):
+        os.remove(image_path)
+
+    db.session.delete(product)
+    db.session.commit()
+    return redirect('/profile')
 
 if __name__ == '__main__':
     with app.app_context():
