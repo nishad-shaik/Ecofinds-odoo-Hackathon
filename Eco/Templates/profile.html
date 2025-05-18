@@ -2,12 +2,23 @@
 
 {% block content %}
 <h2 class="mb-4">User Profile</h2>
+
 <div class="card mb-4">
     <div class="card-body">
-        <h5 class="card-title">{{ user.username }}</h5>
-        <p class="card-text">{{ user.email }}</p>
+        <form method="POST" action="{{ url_for('edit_profile') }}">
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" value="{{ user.username }}" required>
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" value="{{ user.email }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
     </div>
 </div>
+
 <h3>Your Products</h3>
 <div class="row">
     {% for product in user_products %}
@@ -26,3 +37,5 @@
     {% endfor %}
 </div>
 {% endblock %}
+
+

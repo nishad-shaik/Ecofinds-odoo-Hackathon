@@ -3,13 +3,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import os
 
+
 from models import db, User, Product, CartItem
 
+
 app = Flask(__name__)
+app.jinja_env.cache = {}
+
 app.secret_key = 'supersecretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ecofinds.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists('static/uploads'):
     os.makedirs('static/uploads')
@@ -80,10 +85,26 @@ def product_page(product_id):
 
 @app.route('/profile')
 def profile():
+    print(">>> PROFILE ROUTE CALLED")  # 👈 Add this
     if 'user_id' not in session:
         return redirect('/login')
     user = User.query.get(session['user_id'])
-    return render_template('profile.html', user=user)
+    user_products = Product.query.filter_by(owner_id=user.id).all()
+    return render_template('profile.html', user=user, user_products=user_products)
+
+
+@app.route('/edit_profile', methods=['POST'])
+def edit_profile():
+    if 'user_id' not in session:
+        return redirect('/login')
+    
+    user = User.query.get(session['user_id'])
+    user.username = request.form['username']
+    user.email = request.form['email']
+    db.session.commit()
+
+    return redirect('/profile')
+
 
 @app.route('/cart')
 def cart():
@@ -107,6 +128,7 @@ def remove_from_cart(item_id):
     db.session.delete(item)
     db.session.commit()
     return redirect('/cart')
+
 
 if __name__ == '__main__':
     with app.app_context():
