@@ -1,38 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-
-    <link rel="stylesheet" href="style.css" />
-<div class="center-wrapper">
-  <form autocomplete="off" class="form">
-      <p class="title">Register </p>
-      <p class="msg">Sign Up now!</p>
-      <div class="form-group">
-          <label>
-              <input type="text" required>
-              <span>Username</span>
-          </label>
-      </div>
-      <label>
-          <input type="text" required>
-          <span>Email</span>
-      </label>
-      <label>
-          <input type="password" id="password" required>
-          <span>Password</span>
-          <span class="icon" id="togglePassword">
-              <i class="far fa-eye-slash" ></i>
-          </span>
-      </label>
-      
-      <button class="submit">Submit</button>
-      <p class="signin">
-          Already have an account?
-          <a href="#">Signin</a>
-      </p>
-  </form>
-</div>
-<script src="main.js"></script>
+<h2 class="mb-4">Sign Up</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+<p class="mt-3">Already have an account? <a href="/login">Login</a></p>
+    
 
 {% endblock %}
