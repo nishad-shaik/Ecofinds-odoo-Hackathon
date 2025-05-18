@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">User Profile</h2>
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">{{ user.username }}</h5>
+        <p class="card-text">{{ user.email }}</p>
+    </div>
+</div>
+<h3>Your Products</h3>
+<div class="row">
+    {% for product in user_products %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" class="card-img-top" height="200">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">₹{{ product.price }}</p>
+                    <a href="/product/{{ product.id }}" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>You have not listed any products yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
