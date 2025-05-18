@@ -1,4 +1,4 @@
-we have made Maevel green webpage  it is a marketplca prototype of ecofriendly second hand goods.
+we have made Marvel green webpage  it is a marketplace prototype of ecofriendly second hand goods.
 
 **Features**
  > User registration and login
