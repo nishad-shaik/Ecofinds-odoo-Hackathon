@@ -18,7 +18,7 @@
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
 <p class="mt-3">Already have an account? <a href="/login">Login</a></p> -->
-    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="stylesheet" href="style.css" />
     <form autocomplete="off" class="form">
         <p class="title">Register </p>
         <p class="msg">Sign Up now!</p>
@@ -56,5 +56,48 @@
             <a href="#">Signin</a>
         </p>
     </form>
-    <script src="main.js"></script>
+    <script src="main.js"></script> -->
+
+    <link rel="stylesheet" href="style.css" />
+<div class="center-wrapper">
+  <form autocomplete="off" class="form">
+      <p class="title">Register </p>
+      <p class="msg">Sign Up now!</p>
+      <div class="form-group">
+          <label>
+              <input type="text" required>
+              <span>Firstname</span>
+          </label>
+          <label>
+              <input type="text" required>
+              <span>Lastname</span>
+          </label>
+      </div>
+      <label>
+          <input type="text" required>
+          <span>Email</span>
+      </label>
+      <label>
+          <input type="password" id="password" required>
+          <span>Password</span>
+          <span class="icon" id="togglePassword">
+              <i class="far fa-eye-slash" ></i>
+          </span>
+      </label>
+      <label>
+          <input type="password" id="passwordConfirm" required>
+          <span>Confirm Password</span>
+          <span class="icon" id="togglePasswordConfirm">
+              <i class="far fa-eye-slash" ></i>
+          </span>
+      </label>
+      <button class="submit">Submit</button>
+      <p class="signin">
+          Already have an account?
+          <a href="#">Signin</a>
+      </p>
+  </form>
+</div>
+<script src="main.js"></script>
+
 {% endblock %}
