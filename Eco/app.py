@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import os
 
-from Eco.models import db, User, Product, CartItem
+from models import db, User, Product, CartItem
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -15,10 +15,6 @@ if not os.path.exists('static/uploads'):
     os.makedirs('static/uploads')
 
 db.init_app(app)
-
-@app.before_first_request
-def create_tables():
-    db.create_all()
 
 @app.route('/')
 def landing():
@@ -113,4 +109,7 @@ def remove_from_cart(item_id):
     return redirect('/cart')
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
+
