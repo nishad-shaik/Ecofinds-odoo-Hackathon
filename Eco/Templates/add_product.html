@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="d-flex justify-content-center align-items-center vh-100">
+<div class="add-product">
   <div class="card p-4 shadow-lg" style="width: 400px; background-color: #1e2a36; border-radius: 1rem;">
-    <h3 class="text-center text-success mb-3">Add Product</h3>
+    <h3 class="product"  style="color:white; text-align: center;">Add a new product</h3>
     <form method="POST" enctype="multipart/form-data">
       <div class="mb-3">
         <input type="text" class="form-control" name="name" placeholder="Product Name" required>
@@ -15,11 +15,18 @@
       </div>
       <div class="mb-3">
         <select class="form-control" name="category" required>
-          <option value="">Select Category</option>
-          <option value="Books">Books</option>
-          <option value="Clothes">Clothes</option>
+          <option value="">Select Category</option>   
           <option value="Electronics">Electronics</option>
-          <option value="Other">Other</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Home">Home</option>
+          <option value="Beauty">Beauty</option>
+          <option value="Books">Books</option>
+          <option value="Sports">Sports</option>
+          <option value="Toys">Toys</option>
+          <option value="Applicances">Applicances</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Mobiles">Mobiles</option>
+          <option value="Grocery"></option>
         </select>
       </div>
       <div class="mb-3">

@@ -231,7 +231,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('profile'))
+            return redirect(url_for('add_product'))
         else:
             flash('Invalid username or password.', 'danger')
     return render_template('login.html')
@@ -277,13 +277,13 @@ def add_product():
             name=name,
             price=price,
             description=description,
-            image_filename=filename,
+            image=filename,
             owner=current_user
         )
         db.session.add(product)
         db.session.commit()
         return redirect(url_for('profile'))
-    return render_template('add.html')
+    return render_template('add_product.html')
 
 @app.route('/cart')
 @login_required

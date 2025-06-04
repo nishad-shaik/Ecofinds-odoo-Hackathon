@@ -8,24 +8,31 @@
         <option value="">All Categories</option>
         <option value="Electronics">Electronics</option>
         <option value="Clothing">Clothing</option>
+        <option value="Home">Home</option>
+        <option value="Beauty">Beauty</option>
         <option value="Books">Books</option>
+        <option value="Sports">Sports</option>
+        <option value="Toys">Toys</option>
+        <option value="Applicances">Applicances</option>
         <option value="Furniture">Furniture</option>
+        <option value="Mobiles">Mobiles</option>
+        <option value="Grocery"></option>
     </select>
     <button type="submit" class="btn btn-outline-primary">Filter</button>
 </form>
 
 <div class="row">
     {% for product in products %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" class="card-img-top" height="200">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.title }}</h5>
-                    <p class="card-text">₹{{ product.price }}</p>
-                    <a href="/product/{{ product.id }}" class="btn btn-primary">View</a>
-                </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" class="card-img-top" height="200">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="card-text">₹{{ product.price }}</p>
+                <a href="/product/{{ product.id }}" class="btn btn-primary">View</a>
             </div>
         </div>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}
