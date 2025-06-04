@@ -2,7 +2,7 @@
 {% block content %}
 <div class="add-product">
   <div class="card p-4 shadow-lg" style="width: 400px; background-color: #1e2a36; border-radius: 1rem;">
-    <h3 class="product">Add Product</h3>
+    <h3 class="product"  style="color:white; text-align: center;">Add a new product</h3>
     <form method="POST" enctype="multipart/form-data">
       <div class="mb-3">
         <input type="text" class="form-control" name="name" placeholder="Product Name" required>
@@ -15,7 +15,7 @@
       </div>
       <div class="mb-3">
         <select class="form-control" name="category" required>
-          <option value="">Select Category</option>
+          <option value="">Select Category</option>   
           <option value="Electronics">Electronics</option>
           <option value="Clothing">Clothing</option>
           <option value="Home">Home</option>
