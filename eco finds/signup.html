@@ -154,93 +154,107 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- from font awesome website we can get free icons -->
-  <link rel="stylesheet" href="home.css">
-  <title>Animated Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="home.css">
+    <title>Animated Registration Form</title>
 </head>
+
 <body>
-  <form autocomplete="off" class="form">
-    <p class="title">Eco Finds</p>
-    <!-- <p class="up">Signup</p> -->
-    <p class="message">Signup now and get full access to our app.</p>
-    
-     <label for="profile_picture">Profile Picture</label>
-        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" />
-    
-      <label>
-        <input type="text" required> <!--here required term is used bcz if we don't fill the slot it gives us a alret msg to fill it-->
-        <span>Username</span> <!--here span is used bcz it is Animatable,accessible,visible when filled and style is fullcontrol-->
-      </label>
-     
-    
-    <label>
-        <input type="text" required>
-        <span>Fullname</span>
-    </label>
-    <label>
-        <input type="text" required>
-        <span>Email</span>
-    </label>
-     <label>
-        <input type="text" required>
-        <span>Mobile Number</span>
-    </label>
-     <label>
-        <input type="text" required>
-        <span>Location</span>
-    </label>
-     <label>
-        <input type="text" required>
-        <span>About me</span>
-    </label>
-     
-    <label for="communication">
-        <span>Communication Preferences</span>
-        <select id="communication" name="communication">
-          <option value="email">Email</option>
-          <option value="sms">SMS</option>
-          <option value="both">Both</option>
-        </select>
-        
-    </label>
-    <label for="language">
-        <span>Preferred Language</span>
-        <select id="language" name="language">
-          <option value="en">English</option>
-          <option value="hi">Hindi</option>
-          <option value="es">Spanish</option>
-          <option value="fr">French</option>
-        </select>
-    </label>
-        
-    
-    <label>
-        <input type="password" id="password" required>
-        <span>Password</span>
-        <span class="icon" id="togglePassword">
-            <i class="far fa-eye-slash"></i>
-        </span>
-    </label>
-    <label>
-        <input type="password" id="passwordConfirm" required>
-        <span>Confirm Password</span>
-        <span class="icon" id="togglePasswordConfirm">
-            <i class="far fa-eye-slash"></i>
-        </span>
-    </label>
-    <button type="submit" class="submit">Register</button>
-    <p class="signin">
-        Already have an account?
-        <a href="#">
-            Signin
-        </a>
-    </p>
-  </form>
+    <form autocomplete="off" class="form">
+        <!-- <p class="title">Eco Finds</p> -->
+        <div class="brand-container">
+            <img src="C:\Users\NISHAD\Downloads\logo1.jpg" alt="Logo" class="logo">
+            <h1 class="app-title">EcoFinds</h1>
+        </div>
 
-  <script src="signup.js"></script>
+        <p class="message">Signup now and get full access to our app.</p>
+
+        <!-- <div class="file-input-container">
+            <label for="profile_picture">Profile Picture</label>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+        </div> -->
+        <label class="custom-file">
+            <span>Profile Picture</span>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required>
+        </label>
+
+
+
+        <label>
+            <input type="text" required>
+            <span>Username</span>
+        </label>
+
+
+        <label>
+            <input type="text" required>
+            <span>Fullname</span>
+        </label>
+        <label>
+            <input type="text" required>
+            <span>Email</span>
+        </label>
+        <label>
+            <input type="text" required>
+            <span>Mobile Number</span>
+        </label>
+        <label>
+            <input type="text" required>
+            <span>Location</span>
+        </label>
+        <label>
+            <input type="text" required>
+            <span>About me</span>
+        </label>
+
+        <label>
+            <select required>
+                <option value="" disabled selected>Communication Preferences</option>
+                <option value="email">Email</option>
+                <option value="sms">SMS</option>
+                <option value="both">Both</option>
+            </select>
+            <span></span>
+        </label>
+        <label>
+            <select id="language" name="language" required>
+                <option value="" disabled selected hidden>Preferred Language</option>
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+            </select>
+            <span></span>
+        </label>
+
+
+        <label>
+            <input type="password" id="password" required>
+            <span>Password</span>
+            <span class="icon" id="togglePassword">
+                <i class="far fa-eye-slash"></i>
+            </span>
+        </label>
+        <label>
+            <input type="password" id="passwordConfirm" required>
+            <span>Confirm Password</span>
+            <span class="icon" id="togglePasswordConfirm">
+                <i class="far fa-eye-slash"></i>
+            </span>
+        </label>
+        <button type="submit" class="submit">Next Step</button>
+        <p class="signin">
+            Already have an account?
+            <a href="#">
+                Signin
+            </a>
+        </p>
+    </form>
+
+    <script src="signup.js"></script>
 </body>
-</html>
 
+</html>

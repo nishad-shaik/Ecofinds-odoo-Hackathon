@@ -45,3 +45,10 @@ document.querySelector(".form").addEventListener("submit", function (e) {
     toast.remove();
   }, 3000);
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const exploreButton = document.querySelector("#hero button");
+    exploreButton.addEventListener("click", function () {
+        alert("Welcome to ECOFINDS!");
+    });
+});

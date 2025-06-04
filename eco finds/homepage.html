@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,20 +12,24 @@
 </head>
 
 <body>
-    <header>
-        <img class="logo" src="logo.png" alt="EcoFinds Logo">
-        <nav>
-            <input type="text" placeholder="Search">
-            <select>
-                <option>Filter by</option>
-            </select>
-            <select>
-                <option>Categories</option>
-            </select>
-            <img src="user-icon.png" alt="User" height="24">
-            <img src="cart-icon.png" alt="Cart" height="24">
-        </nav>
-    </header>
+
+    <div class="top-bar"style="background-color:#fff;">
+        <div class="logo" style="color: #1ab188;">EcoFinds</div>
+        <div class="search-bar">
+            <input type="text" class="search-bar" placeholder="Search ....">
+            <span class="icon"><i class="fas fa-search"></i></span>
+        </div>
+        
+        <button class="btn">Sort</button>
+        <button class="btn">Filter</button>
+        <button class="btn">Groupby</button>
+        <span class="icon"><i class="fas fa-shopping-cart"></i></span>
+        <span class="icon"><i class="fas fa-bell"></i></span>
+
+        <span class="icon"><i class="fa-regular fa-heart"></i></span>
+    </div>
+
+
 
     <section class="banner">
         <h1>Good Stuff.<br>Great Vibes.<br>Greener Choices.</h1>
@@ -100,4 +104,83 @@
     </div>
 </body>
 
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOFINDS</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <header>
+        <h1>ECOFINDS</h1>
+        <nav>
+            <div class="nav-icons">
+                <span>☰</span>
+                <span>🔍</span>
+                <span>⚙️</span>
+                <span>👤</span>
+                <span>🛒</span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-text">
+                <h2>Good Stuff. Great Vibes. Greener Choices.</h2>
+                <button>Explore Now</button>
+            </div>
+            <div class="hero-image">
+                <img src="green-shoes.jpg" alt="Green Shoes">
+            </div>
+        </section>
+
+        <section id="categories">
+            <h2>All Categories</h2>
+            <div class="category-grid">
+                <div class="category"><img src="electronics.jpg" alt="Electronics"><p>Electronics</p></div>
+                <div class="category"><img src="furniture.jpg" alt="Furniture"><p>Furniture</p></div>
+                <div class="category"><img src="beauty.jpg" alt="Beauty"><p>Beauty Products</p></div>
+            </div>
+        </section>
+
+        <section id="trending-products">
+            <h2>Trending Products</h2>
+            <div class="product-grid">
+                <div class="product"><img src="laptop.jpg" alt="Laptop"><p>Acer Laptop - ₹12,000</p></div>
+                <div class="product"><img src="car.jpg" alt="Car"><p>Toyota Car - ₹5,00,000</p></div>
+                <div class="product"><img src="books.jpg" alt="Books"><p>Vintage Books - ₹1,500</p></div>
+            </div>
+        </section>
+
+        <section id="trending-sellers">
+            <h2>Trending Sellers</h2>
+            <div class="seller-grid">
+                <div class="seller"><img src="amanda.jpg" alt="Amanda"><p>Amanda</p></div>
+                <div class="seller"><img src="rahul.jpg" alt="Rahul"><p>Rahul</p></div>
+                <div class="seller"><img src="divik.jpg" alt="Divik"><p>Divik</p></div>
+            </div>
+        </section>
+
+        <section id="live-auction">
+            <h2>Live Auction</h2>
+            <div class="auction-grid">
+                <div class="auction-item"><img src="mobile.jpg" alt="Mobile"><p>Mobile - ₹12,000</p></div>
+                <div class="auction-item"><img src="fridge.jpg" alt="Fridge"><p>Refrigerator - ₹9,000</p></div>
+                <div class="auction-item"><img src="jacket.jpg" alt="Jacket"><p>Jacket - ₹1,500</p></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ECOFINDS</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
