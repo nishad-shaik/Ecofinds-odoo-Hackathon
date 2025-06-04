@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      background-color: #0f4d3f;
+      color: white;
+    }
+    header {
+      background-color: white;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+    header img.logo {
+      height: 40px;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .banner {
+      text-align: left;
+      padding: 60px 40px;
+      background-color: #1b6e5a;
+    }
+    .banner h1 {
+      font-size: 36px;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .banner button {
+      margin-top: 20px;
+      background: black;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .section-title {
+      background-color: #f3b400;
+      color: black;
+      padding: 8px 20px;
+      margin: 20px auto;
+      width: fit-content;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+    .category-container, .products-container, .sellers-container, .auction-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 0 10px;
+    }
+    .category, .product, .seller, .auction-item {
+      text-align: center;
+    }
+    .category img, .product img, .seller img, .auction-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .seller img {
+      border-radius: 50%;
+    }
+    .auction-item button {
+      margin-top: 5px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img class="logo" src="logo.png" alt="EcoFinds Logo">
+    <nav>
+      <input type="text" placeholder="Search">
+      <select><option>Filter by</option></select>
+      <select><option>Categories</option></select>
+      <img src="user-icon.png" alt="User" height="24">
+      <img src="cart-icon.png" alt="Cart" height="24">
+    </nav>
+  </header>
+
+  <section class="banner">
+    <h1>Good Stuff.<br>Great Vibes.<br>Greener Choices.</h1>
+    <button>Explore Now</button>
+  </section>
+
+  <div class="section-title">All Categories</div>
+  <div class="category-container">
+    <div class="category">
+      <img src="electronics.jpg" alt="Electronics">
+      <div>ELECTRONICS</div>
+    </div>
+    <div class="category">
+      <img src="furniture.jpg" alt="Furniture">
+      <div>FURNITURE</div>
+    </div>
+    <div class="category">
+      <img src="beauty.jpg" alt="Beauty">
+      <div>BEAUTY PRODUCTS</div>
+    </div>
+  </div>
+
+  <div class="section-title">Trending Products</div>
+  <div class="products-container">
+    <div class="product">
+      <img src="laptop.jpg" alt="Laptop">
+      <div>acer second hand laptop<br>Rs. 22000</div>
+    </div>
+    <div class="product">
+      <img src="car.jpg" alt="Car">
+      <div>hyundai second hand car<br>Rs. 280000</div>
+    </div>
+    <div class="product">
+      <img src="books.jpg" alt="Books">
+      <div>wimpy kid collection<br>Rs. 1000</div>
+    </div>
+  </div>
+
+  <div class="section-title">Trending Sellers</div>
+  <div class="sellers-container">
+    <div class="seller">
+      <img src="amanda.jpg" alt="Amanda">
+      <div>Amanda</div>
+    </div>
+    <div class="seller">
+      <img src="rahul.jpg" alt="Rahul">
+      <div>Rahul</div>
+    </div>
+    <div class="seller">
+      <img src="divya.jpg" alt="Divya">
+      <div>Divya</div>
+    </div>
+  </div>
+
+  <div class="section-title">Live Auction</div>
+  <div class="auction-container">
+    <div class="auction-item">
+      <img src="makeup.jpg" alt="Makeup">
+      <div>Make up<br>Rs. 1000</div>
+      <button>Live now</button>
+    </div>
+    <div class="auction-item">
+      <img src="fridge.jpg" alt="Fridge">
+      <div>Refrigerator<br>Rs. 5000</div>
+      <button>Live now</button>
+    </div>
+    <div class="auction-item">
+      <img src="jordan.jpg" alt="Jordan">
+      <div>Jordan 1<br>Rs. 16000</div>
+      <button>Live now</button>
+    </div>
+  </div>
+</body>
+</html>
+
