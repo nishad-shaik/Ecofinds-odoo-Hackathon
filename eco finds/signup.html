@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -150,4 +150,58 @@
     </div>
   </div>
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- from font awesome website we can get free icons -->
+  <link rel="stylesheet" href="signup.css">
+  <title>Animated Registration Form</title>
+</head>
+<body>
+  <form autocomplete="off" class="form">
+    <p class="title">Eco Finds</p>
+    <!-- <p class="up">Signup</p> -->
+    <p class="message">Signup now and get full access to our app.</p>
+
+    
+      <label>
+        <input type="text" required> <!--here required term is used bcz if we don't fill the slot it gives us a alret msg to fill it-->
+        <span>Username</span> <!--here span is used bcz it is Animatable,accessible,visible when filled and style is fullcontrol-->
+      </label>
+     
+    
+    <label>
+        <input type="text" required>
+        <span>Email</span>
+    </label>
+    <label>
+        <input type="password" id="password" required>
+        <span>Password</span>
+        <span class="icon" id="togglePassword">
+            <i class="far fa-eye-slash"></i>
+        </span>
+    </label>
+    <label>
+        <input type="password" id="passwordConfirm" required>
+        <span>Confirm Password</span>
+        <span class="icon" id="togglePasswordConfirm">
+            <i class="far fa-eye-slash"></i>
+        </span>
+    </label>
+    <button type="submit" class="submit">Register</button>
+    <p class="signin">
+        Already have an account?
+        <a href="#">
+            Signin
+        </a>
+    </p>
+  </form>
+
+  <script src="signup.js"></script>
+</body>
 </html>
+
