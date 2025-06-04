@@ -12,7 +12,9 @@ body {
     font-family: sans-serif;
 }
 
-
+p{
+    align-items: center;
+}
 .form {
     display: flex;
     flex-direction: column ;
