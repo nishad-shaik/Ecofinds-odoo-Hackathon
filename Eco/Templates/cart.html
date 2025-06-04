@@ -1,28 +1,27 @@
+<!-- cart.html -->
 {% extends 'base.html' %}
-
 {% block content %}
-<h2 class="mb-4">Your Cart</h2>
-
-{% if items %}
-    <div class="row">
-        {% for item in items %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="{{ url_for('static', filename='uploads/' ~ item.product.image) }}" class="card-img-top" height="200">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.product.title }}</h5>
-                        <p class="card-text">₹{{ item.product.price }}</p>
-                        <a href="{{ url_for('product_page', product_id=item.product.id) }}" class="btn btn-sm btn-outline-primary">View</a>
-                        <a href="{{ url_for('buy_now', product_id=item.product.id) }}" class="btn btn-sm btn-success">Buy Now</a>
-                        <a href="{{ url_for('remove_from_cart', item_id=item.id) }}" class="btn btn-sm btn-outline-danger">Remove</a>
-                    </div>
-                </div>
-            </div>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow-lg" style="width: 500px; background-color: #1e2a36; border-radius: 1rem;">
+    <h3 class="text-center text-success mb-4">Your Cart</h3>
+    {% if cart_items %}
+      <ul class="list-group mb-3">
+        {% for item in cart_items %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ item.name }}</span>
+          <span class="badge bg-success">₹{{ item.price }}</span>
+        </li>
         {% endfor %}
-    </div>
-{% else %}
-    <p>Your cart is empty.</p>
-{% endif %}
+      </ul>
+      <div class="text-center">
+        <p class="text-white">Total: ₹{{ total }}</p>
+        <form method="POST" action="/checkout">
+          <button type="submit" class="btn btn-success">Confirm Purchase</button>
+        </form>
+      </div>
+    {% else %}
+      <p class="text-white text-center">Your cart is empty.</p>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
-
-
