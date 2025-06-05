@@ -27,7 +27,9 @@
     }
 
     header img.logo {
-      height: 40px;
+      height: 42px;
+      object-fit: contain;
+      border-radius: 6px;
     }
 
     nav {
@@ -71,7 +73,9 @@
 <body>
 
   <header>
-    <img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="EcoFinds Logo">
+    <a href="{{ url_for('product_bp.home') }}">
+      <img class="logo" src="{{ url_for('static', filename='uploads/logo.png') }}" alt="EcoFinds Logo">
+    </a>
     <nav>
       <a href="{{ url_for('product_bp.home') }}">Home</a>
       <a href="{{ url_for('product_bp.view_cart') }}">Cart</a>

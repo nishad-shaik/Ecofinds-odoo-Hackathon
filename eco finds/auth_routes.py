@@ -57,18 +57,31 @@ def register():
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        user = User.query.filter_by(email=email).first()
+        username = request.form.get('username')
+        password = request.form.get('password')
 
-        if user and check_password_hash(user.password, password):
+        if not username or not password:
+            flash("Please enter both username and password.")
+            return redirect(url_for('auth.login'))
+
+        user = User.query.filter_by(username=username).first()
+
+        if not user:
+            flash("User not found. Please sign up.")
+            return redirect(url_for('auth.register'))
+
+        if check_password_hash(user.password, password):
             login_user(user)
             flash('Logged in successfully.')
             return redirect(url_for('product_bp.home'))
         else:
-            flash('Invalid email or password.')
+            flash('Invalid password.')
+            return redirect(url_for('auth.login'))
 
     return render_template('login.html')
+
+
+
 
 
 @auth_bp.route('/logout')
