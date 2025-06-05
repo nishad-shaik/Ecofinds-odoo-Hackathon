@@ -1,6 +1,4 @@
-
-
-    @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 * {
   margin: 0;
@@ -36,11 +34,6 @@ body {
     position: relative;
     text-align: center;
 }
-/* .up{
-    color: #fff;
-    text-align: center;
-    font-size: 16px;
-} */
 
 .message,.signin{
     color: #fff;
@@ -206,11 +199,12 @@ body {
   transition: box-shadow 0.2s;
 }
 .product-card img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
+  width: 120px !important;
+  height: 120px !important;
+  object-fit: cover !important;
   border-radius: 10px;
   margin-bottom: 10px;
+  display: block;
 }
 .product-card h3 {
   font-size: 1.1rem;
