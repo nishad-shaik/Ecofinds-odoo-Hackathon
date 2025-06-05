@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}All Categories - EcoFinds{% endblock %}
+
+{% block content %}
+<style>
+  .category-section {
+    margin-bottom: 40px;
+    padding: 0 20px;
+  }
+
+  .category-section h2 {
+    font-size: 20px;
+    background-color: #f3b400;
+    padding: 10px 20px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 15px;
+    color: black;
+  }
+
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+
+  .product-card {
+    background-color: white;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 10px;
+    text-align: center;
+  }
+
+  .product-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .product-card h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    color: #0f4d3f;
+  }
+
+  .product-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #444;
+  }
+
+  .product-card a {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #0f4d3f;
+    text-decoration: underline;
+  }
+</style>
+
+{% for category, items in categories.items() %}
+  <div class="category-section">
+    <h2>{{ category or 'Uncategorized' }}</h2>
+    <div class="product-grid">
+      {% for product in items %}
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" alt="{{ product.title }}">
+        <h3>{{ product.title }}</h3>
+        <p>Rs. {{ product.price }}</p>
+        <a href="{{ url_for('product_bp.product_detail', product_id=product.id) }}">View Product</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}

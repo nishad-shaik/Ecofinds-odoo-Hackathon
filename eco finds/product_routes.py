@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from models import db, Product, CartItem, WatchlistItem, User
+from collections import defaultdict
 
 product_bp = Blueprint('product_bp', __name__)
 
@@ -10,6 +11,21 @@ product_bp = Blueprint('product_bp', __name__)
 def home():
     products = Product.query.order_by(Product.created_at.desc()).all()
     return render_template('homepage.html', products=products)
+
+# -------------------- All Categories Grouped --------------------
+@product_bp.route('/categories')
+def view_categories():
+    all_products = Product.query.all()
+    categories = defaultdict(list)
+    for product in all_products:
+        categories[product.category].append(product)
+    return render_template('categories.html', categories=categories)
+
+# -------------------- Individual Category Page --------------------
+@product_bp.route('/categories/<string:category_name>')
+def category_page(category_name):
+    products = Product.query.filter(Product.category.ilike(category_name)).all()
+    return render_template('category_page.html', category=category_name, products=products)
 
 # -------------------- Product Detail --------------------
 @product_bp.route('/product/<int:product_id>')
@@ -27,6 +43,7 @@ def add_product():
         price = float(request.form['price'])
         category = request.form['category']
         image = request.files['image']
+
         filename = secure_filename(image.filename)
         image.save(f'static/uploads/{filename}')
 
@@ -82,7 +99,6 @@ def remove_from_cart(product_id):
 @product_bp.route('/checkout', methods=['POST'])
 @login_required
 def checkout():
-    # Placeholder for future orders
     CartItem.query.filter_by(user_id=current_user.id).delete()
     db.session.commit()
     flash("Checkout successful!")
@@ -119,7 +135,7 @@ def remove_from_watchlist(product_id):
 @product_bp.route('/buy/<int:product_id>', methods=['POST'])
 @login_required
 def buy_now(product_id):
-    flash("Buy Now clicked! (Implement orders soon)")
+    flash("Buy Now clicked!")
     return redirect(url_for('product_bp.product_detail', product_id=product_id))
 
 # -------------------- Profile --------------------
@@ -130,7 +146,6 @@ def profile():
     listings = Product.query.filter_by(seller_id=user.id).all()
     return render_template('profile_page.html', user=user, listings=listings)
 
-# -------------------- Update Profile --------------------
 @product_bp.route('/profile/edit', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
