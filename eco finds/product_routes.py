@@ -1,19 +1,23 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
 from models import db, Product, CartItem, WatchlistItem, User
 
 product_bp = Blueprint('product_bp', __name__)
 
+# -------------------- Home --------------------
 @product_bp.route('/')
 def home():
     products = Product.query.order_by(Product.created_at.desc()).all()
     return render_template('homepage.html', products=products)
 
+# -------------------- Product Detail --------------------
 @product_bp.route('/product/<int:product_id>')
 def product_detail(product_id):
     product = Product.query.get_or_404(product_id)
     return render_template('product_detail.html', product=product)
 
+# -------------------- Add Product --------------------
 @product_bp.route('/add', methods=['GET', 'POST'])
 @login_required
 def add_product():
@@ -23,11 +27,17 @@ def add_product():
         price = float(request.form['price'])
         category = request.form['category']
         image = request.files['image']
-        filename = image.filename
+        filename = secure_filename(image.filename)
         image.save(f'static/uploads/{filename}')
 
-        product = Product(title=title, description=description, price=price, category=category,
-                          image=filename, seller_id=current_user.id)
+        product = Product(
+            title=title,
+            description=description,
+            price=price,
+            category=category,
+            image=filename,
+            seller_id=current_user.id
+        )
         db.session.add(product)
         db.session.commit()
         flash('Product added successfully!')
@@ -35,12 +45,14 @@ def add_product():
 
     return render_template('add_product.html')
 
+# -------------------- Search --------------------
 @product_bp.route('/search')
 def search():
     query = request.args.get('q', '').strip()
     products = Product.query.filter(Product.title.ilike(f'%{query}%')).all() if query else []
     return render_template('search_results.html', products=products, query=query)
 
+# -------------------- Cart --------------------
 @product_bp.route('/cart')
 @login_required
 def view_cart():
@@ -50,13 +62,12 @@ def view_cart():
 @product_bp.route('/cart/add/<int:product_id>', methods=['POST'])
 @login_required
 def add_to_cart(product_id):
-    existing = CartItem.query.filter_by(user_id=current_user.id, product_id=product_id).first()
-    if not existing:
+    if not CartItem.query.filter_by(user_id=current_user.id, product_id=product_id).first():
         item = CartItem(user_id=current_user.id, product_id=product_id)
         db.session.add(item)
         db.session.commit()
         flash("Added to cart!")
-    return redirect(url_for('product_bp.product_detail', product_id=product_id))
+    return redirect(url_for('product_bp.view_cart'))
 
 @product_bp.route('/cart/remove/<int:product_id>', methods=['POST'])
 @login_required
@@ -68,6 +79,16 @@ def remove_from_cart(product_id):
         flash("Removed from cart.")
     return redirect(url_for('product_bp.view_cart'))
 
+@product_bp.route('/checkout', methods=['POST'])
+@login_required
+def checkout():
+    # Placeholder for future orders
+    CartItem.query.filter_by(user_id=current_user.id).delete()
+    db.session.commit()
+    flash("Checkout successful!")
+    return redirect(url_for('product_bp.home'))
+
+# -------------------- Wishlist --------------------
 @product_bp.route('/watchlist')
 @login_required
 def view_watchlist():
@@ -77,12 +98,11 @@ def view_watchlist():
 @product_bp.route('/watchlist/add/<int:product_id>', methods=['POST'])
 @login_required
 def add_to_watchlist(product_id):
-    existing = WatchlistItem.query.filter_by(user_id=current_user.id, product_id=product_id).first()
-    if not existing:
+    if not WatchlistItem.query.filter_by(user_id=current_user.id, product_id=product_id).first():
         item = WatchlistItem(user_id=current_user.id, product_id=product_id)
         db.session.add(item)
         db.session.commit()
-        flash("Added to watchlist!")
+        flash("Added to wishlist!")
     return redirect(url_for('product_bp.product_detail', product_id=product_id))
 
 @product_bp.route('/watchlist/remove/<int:product_id>', methods=['POST'])
@@ -92,16 +112,17 @@ def remove_from_watchlist(product_id):
     if item:
         db.session.delete(item)
         db.session.commit()
-        flash("Removed from watchlist.")
+        flash("Removed from wishlist.")
     return redirect(url_for('product_bp.view_watchlist'))
 
+# -------------------- Buy Now --------------------
 @product_bp.route('/buy/<int:product_id>', methods=['POST'])
 @login_required
 def buy_now(product_id):
-    # This is a placeholder — implement order creation logic later
-    flash("Buy Now clicked!")
+    flash("Buy Now clicked! (Implement orders soon)")
     return redirect(url_for('product_bp.product_detail', product_id=product_id))
 
+# -------------------- Profile --------------------
 @product_bp.route('/profile')
 @login_required
 def profile():
@@ -109,11 +130,26 @@ def profile():
     listings = Product.query.filter_by(seller_id=user.id).all()
     return render_template('profile_page.html', user=user, listings=listings)
 
-@product_bp.route('/checkout', methods=['POST'])
+# -------------------- Update Profile --------------------
+@product_bp.route('/profile/edit', methods=['GET', 'POST'])
 @login_required
-def checkout():
-    # Placeholder for future order system
-    flash("Checkout completed!")
-    CartItem.query.filter_by(user_id=current_user.id).delete()
-    db.session.commit()
-    return redirect(url_for('product_bp.home'))
+def edit_profile():
+    user = current_user
+
+    if request.method == 'POST':
+        user.username = request.form['username']
+        user.email = request.form['email']
+        user.phone = request.form['phone']
+
+        if 'profile_pic' in request.files:
+            pic = request.files['profile_pic']
+            if pic and pic.filename != '':
+                filename = secure_filename(pic.filename)
+                pic.save(f'static/uploads/{filename}')
+                user.profile_pic = filename
+
+        db.session.commit()
+        flash("Profile updated successfully!")
+        return redirect(url_for('product_bp.profile'))
+
+    return render_template('edit_profile.html', user=user)

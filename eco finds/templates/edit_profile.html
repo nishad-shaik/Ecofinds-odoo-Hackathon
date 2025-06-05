@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile - EcoFinds{% endblock %}
+
+{% block content %}
+<style>
+  .edit-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    color: #0f4d3f;
+  }
+
+  .edit-container h2 {
+    margin-bottom: 20px;
+  }
+
+  .edit-container form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  .edit-container input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  .edit-container button {
+    margin-top: 20px;
+    background: #0f4d3f;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+</style>
+
+<div class="edit-container">
+  <h2>Update Profile</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <label>Username</label>
+    <input type="text" name="username" value="{{ user.username }}" required>
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ user.email }}" required>
+
+    <label>Phone</label>
+    <input type="text" name="phone" value="{{ user.phone }}" required>
+
+    <label>Change Profile Picture</label>
+    <input type="file" name="profile_pic" accept="image/*">
+
+    <button type="submit">Save Changes</button>
+  </form>
+</div>
+{% endblock %}
