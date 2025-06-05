@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -39,4 +39,26 @@
     </form>
   </div>
 </body>
-</html>
+</html> -->
+
+
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+  <div class="center-wrapper">
+    <form class="form" method="POST">
+      <p class="title">Login</p>
+      <p class="msg">Welcome back! Please login to your account.</p>
+      <label>
+        <input required placeholder="" type="text" name="username">
+        <span>Username</span>
+      </label>
+      <label>
+        <input required placeholder="" type="password" name="password">
+        <span>Password</span>
+      </label>
+      <button class="submit">Login</button>
+      <p class="signin">Don't have an account? <a href="/signup">Signup</a></p>
+    </form>
+  </div>
+{% endblock %}
