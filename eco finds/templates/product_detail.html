@@ -42,6 +42,10 @@
     color: red;
     font-size: 20px;
     cursor: pointer;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 4px;
+    padding: 2px 6px;
   }
 
   .product-price {
@@ -54,19 +58,26 @@
     margin-bottom: 20px;
   }
 
-  .action-buttons form {
-    display: inline-block;
-    margin-right: 10px;
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
   }
 
-  .action-buttons button {
+  .product-btn {
     background: #0f4d3f;
     color: white;
     border: none;
-    padding: 10px 16px;
+    padding: 10px 18px;
     font-size: 14px;
     border-radius: 8px;
     cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .product-btn:hover {
+    background: #0c3d31;
   }
 </style>
 
@@ -86,13 +97,13 @@
 
     <div class="action-buttons">
       <form method="POST" action="{{ url_for('product_bp.buy_now', product_id=product.id) }}">
-        <button>Buy Now</button>
+        <button class="product-btn">Buy Now</button>
       </form>
       <form method="POST" action="{{ url_for('product_bp.add_to_cart', product_id=product.id) }}">
-        <button>Add to Cart</button>
+        <button class="product-btn">Add to Cart</button>
       </form>
       <form method="POST" action="{{ url_for('product_bp.add_to_watchlist', product_id=product.id) }}">
-        <button>Add to Watchlist</button>
+        <button class="product-btn">Add to Watchlist</button>
       </form>
     </div>
   </div>
