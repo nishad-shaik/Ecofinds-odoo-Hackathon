@@ -12,7 +12,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(128), nullable=False)
     phone = db.Column(db.String(15), unique=True)
     verified = db.Column(db.Boolean, default=False)
+    profile_pic = db.Column(db.String(100), default='default_profile.png')  # New field
     listings = db.relationship('Product', backref='seller', lazy=True)
+
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -50,3 +52,15 @@ class Complaint(db.Model):
     message = db.Column(db.Text)
     status = db.Column(db.String(20), default='Open')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+class CartItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    product = db.relationship('Product')
+
+class WatchlistItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    product = db.relationship('Product')

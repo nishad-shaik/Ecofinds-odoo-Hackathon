@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}My Cart - EcoFinds{% endblock %}
+
+{% block content %}
+<style>
+  .cart-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    color: #0f4d3f;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+  }
+
+  .cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .cart-info {
+    flex: 1;
+  }
+
+  .cart-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .cart-price {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+
+  .remove-button {
+    background: #d32f2f;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .checkout {
+    text-align: right;
+    margin-top: 30px;
+  }
+
+  .checkout-btn {
+    background: #0f4d3f;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+</style>
+
+<div class="cart-container">
+  <h2>My Cart</h2>
+
+  {% if cart_items %}
+    {% for item in cart_items %}
+    <div class="cart-item">
+      <img src="{{ url_for('static', filename='uploads/' ~ item.image) }}" alt="{{ item.title }}">
+      <div class="cart-info">
+        <div class="cart-title">{{ item.title }}</div>
+        <div class="cart-price">Rs. {{ item.price }}</div>
+      </div>
+      <form method="POST" action="{{ url_for('product_bp.remove_from_cart', product_id=item.id) }}">
+        <button class="remove-button">Remove</button>
+      </form>
+    </div>
+    {% endfor %}
+
+    <div class="checkout">
+      <form method="POST" action="{{ url_for('product_bp.checkout') }}">
+        <button class="checkout-btn">Proceed to Checkout</button>
+      </form>
+    </div>
+
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
+</div>
+{% endblock %}

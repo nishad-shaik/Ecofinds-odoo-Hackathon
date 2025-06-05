@@ -1,13 +1,104 @@
-<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}EcoFinds{% endblock %}</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f6f6f6;
+      color: #0f4d3f;
+    }
+
+    header {
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header img.logo {
+      height: 40px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #0f4d3f;
+      font-weight: 500;
+    }
+
+    .profile-pic {
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .flashes {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 15px;
+    }
+
+    .flashes li {
+      background: #f3b400;
+      color: black;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+    }
+  </style>
 </head>
 <body>
-  {% block content %}{% endblock %}
+
+  <header>
+    <img class="logo" src="{{ url_for('static', filename='logo.png') }}" alt="EcoFinds Logo">
+    <nav>
+      <a href="{{ url_for('product_bp.home') }}">Home</a>
+      <a href="{{ url_for('product_bp.view_cart') }}">Cart</a>
+      <a href="{{ url_for('product_bp.view_watchlist') }}">Wishlist</a>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('product_bp.profile') }}">
+          <img src="{{ url_for('static', filename='uploads/' ~ current_user.profile_pic) }}" alt="Profile" class="profile-pic">
+        </a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}">Login</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
 </body>
 </html>

@@ -1,14 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-from app import db
-from models import User, Message
+from models import db, Message, User
 
 chat_bp = Blueprint('chat_bp', __name__)
 
-@chat_bp.route('/chat/<int:user_id>', methods=['GET', 'POST'])
+@chat_bp.route('/<int:user_id>', methods=['GET', 'POST'])
 @login_required
 def chat(user_id):
     other_user = User.query.get_or_404(user_id)
+
     if request.method == 'POST':
         content = request.form['content']
         message = Message(
