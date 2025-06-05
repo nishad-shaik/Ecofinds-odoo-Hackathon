@@ -1,108 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>{% block title %}EcoFinds{% endblock %}</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
-      background-color: #f6f6f6;
-      color: #0f4d3f;
+      background-color: #f5f5f5;
     }
 
     header {
-      background-color: white;
+      background-color: #0f4d3f;
+      color: white;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 24px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 10px 20px;
+      position: relative;
+      flex-wrap: wrap;
     }
 
-    header img.logo {
-      height: 42px;
-      object-fit: contain;
-      border-radius: 6px;
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
 
-    nav {
+    .logo-container img {
+      height: 40px;
+    }
+
+    .sidebar-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .sidebar-toggle span {
+      display: block;
+      width: 30px;
+      height: 3px;
+      background-color: white;
+      border-radius: 2px;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #0f4d3f;
+      color: white;
+      padding: 20px;
+      transition: left 0.3s ease;
+      z-index: 999;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 10px 0;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-img {
+      height: 35px;
+      width: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-left: auto;
+    }
+
+    .nav-right {
       display: flex;
       align-items: center;
       gap: 20px;
     }
 
-    nav a {
-      text-decoration: none;
-      color: #0f4d3f;
-      font-weight: 500;
-    }
-
-    .profile-pic {
-      height: 36px;
-      width: 36px;
-      border-radius: 50%;
-      object-fit: cover;
+    .flash-messages {
+      padding: 10px;
+      background-color: #f3b400;
+      text-align: center;
+      list-style: none;
+      margin: 0;
     }
 
     main {
       padding: 20px;
     }
 
-    .flashes {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 15px;
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
     }
 
-    .flashes li {
-      background: #f3b400;
+    .search-bar input[type="text"] {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 14px;
+      width: 180px;
+    }
+
+    .search-bar select {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 14px;
+    }
+
+    .search-bar button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: #f3b400;
       color: black;
-      padding: 10px;
-      margin-bottom: 8px;
-      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
     }
   </style>
 </head>
+
 <body>
 
+  <!-- Sidebar Menu -->
+  <div id="sidebar" class="sidebar">
+    <a href="{{ url_for('product_bp.home') }}">Home</a>
+    {% if current_user.is_authenticated %}
+      <a href="{{ url_for('product_bp.add_product') }}">Add</a>
+    {% endif %}
+    <a href="{{ url_for('product_bp.view_categories') }}">Categories</a>
+    <a href="{{ url_for('product_bp.view_watchlist') }}">Wishlist</a>
+    <a href="{{ url_for('product_bp.view_cart') }}">Cart</a>
+    {% if current_user.is_authenticated %}
+      <a href="{{ url_for('product_bp.profile') }}">Profile</a>
+      <a href="{{ url_for('auth.logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('auth.login') }}">Login</a>
+      <a href="{{ url_for('auth.register') }}">Signup</a>
+    {% endif %}
+  </div>
+
+  <!-- Header -->
   <header>
-    <a href="{{ url_for('product_bp.home') }}">
-      <img class="logo" src="{{ url_for('static', filename='uploads/logo.png') }}" alt="EcoFinds Logo">
-    </a>
-    <nav>
-      <a href="{{ url_for('product_bp.home') }}">Home</a>
-      <a href="{{ url_for('product_bp.view_cart') }}">Cart</a>
-      <a href="{{ url_for('product_bp.view_watchlist') }}">Wishlist</a>
+    <div class="logo-container">
+      <button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="{{ url_for('product_bp.home') }}">
+        <img src="{{ url_for('static', filename='uploads/logo.jpg') }}" alt="EcoFinds Logo">
+      </a>
+    </div>
+
+    <form class="search-bar" method="GET" action="{{ url_for('product_bp.search') }}">
+      <input type="text" name="q" placeholder="Search products..." value="{{ request.args.get('q', '') }}">
+      <select name="category">
+        <option value="">All Categories</option>
+        {% for cat in categories %}
+          <option value="{{ cat }}" {% if request.args.get('category') == cat %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="nav-right">
       {% if current_user.is_authenticated %}
-        <a href="{{ url_for('product_bp.profile') }}">
-          <img src="{{ url_for('static', filename='uploads/' ~ current_user.profile_pic) }}" alt="Profile" class="profile-pic">
-        </a>
-      {% else %}
-        <a href="{{ url_for('auth.login') }}">Login</a>
+        {% if current_user.profile_pic %}
+          <a href="{{ url_for('product_bp.profile') }}">
+            <img src="{{ url_for('static', filename='uploads/' ~ current_user.profile_pic) }}" alt="Profile" class="profile-img">
+          </a>
+        {% else %}
+          <a href="{{ url_for('product_bp.profile') }}">
+            <img src="{{ url_for('static', filename='uploads/default-user.png') }}" alt="Profile" class="profile-img">
+          </a>
+        {% endif %}
       {% endif %}
-    </nav>
+    </div>
   </header>
 
-  <main>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class="flashes">
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flash-messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
 
+  <main>
     {% block content %}{% endblock %}
   </main>
-
 </body>
 </html>

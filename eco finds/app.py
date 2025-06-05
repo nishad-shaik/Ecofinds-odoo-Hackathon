@@ -1,18 +1,22 @@
 from flask import Flask
 from config import Config
-from extensions import db, login_manager, migrate
+from flask_login import LoginManager
+from models import db, User  # ✅ db & User from models
+
+
+
+# Initialize login manager
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # Initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
-    login_manager.login_view = 'auth.login'
-    migrate.init_app(app, db)
 
-    # Register blueprints (delayed to avoid circular imports)
+    # Register blueprints
     from auth_routes import auth_bp
     from product_routes import product_bp
     from auction_routes import auction_bp
@@ -25,12 +29,15 @@ def create_app():
     app.register_blueprint(chat_bp)
     app.register_blueprint(admin_bp)
 
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
     return app
 
-# Main runner
-if __name__ == "__main__":
+# Entry point
+if __name__ == '__main__':
     app = create_app()
     with app.app_context():
-        from models import *  # ✅ Import models after app is ready
         db.create_all()
     app.run(debug=True)
