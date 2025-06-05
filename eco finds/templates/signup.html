@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}Signup{% endblock %}
+{% block content %}
+<style>
+  .form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #0f4d3f;
+  }
+
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: #0f4d3f;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+  }
+
+  .login-link a {
+    color: #0f4d3f;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="form-container">
+  <h2>Create an Account</h2>
+  <form method="POST" action="{{ url_for('auth.register') }}" enctype="multipart/form-data">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="phone">Mobile Number</label>
+    <input type="text" id="phone" name="phone" required>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" name="location">
+
+    <label for="about">About Me</label>
+    <input type="text" id="about" name="about">
+
+    <label for="comm_pref">Communication Preferences</label>
+    <select id="comm_pref" name="comm_pref">
+      <option value="" disabled selected>Choose one</option>
+      <option value="email">Email</option>
+      <option value="sms">SMS</option>
+      <option value="both">Both</option>
+    </select>
+
+    <label for="language">Preferred Language</label>
+    <select id="language" name="language">
+      <option value="" disabled selected>Choose language</option>
+      <option value="en">English</option>
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="confirm">Confirm Password</label>
+    <input type="password" id="confirm" name="confirm" required>
+
+    <label for="profile_picture">Profile Picture</label>
+    <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+
+    <button type="submit" class="submit-btn">Sign Up</button>
+  </form>
+
+  <div class="login-link">
+    Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>
+  </div>
+</div>
+{% endblock %}

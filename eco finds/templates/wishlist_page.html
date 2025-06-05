@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}My Wishlist - EcoFinds{% endblock %}
+{% block content %}
+
+<style>
+  .wishlist-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 10px;
+    color: #0f4d3f;
+  }
+
+  .wishlist-container h2 {
+    margin-bottom: 20px;
+  }
+
+  .wishlist-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .wishlist-card {
+    background-color: white;
+    border-radius: 10px;
+    width: 220px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .wishlist-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .wishlist-title {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .wishlist-price {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #444;
+  }
+
+  .wishlist-card form {
+    margin-top: 10px;
+  }
+
+  .wishlist-card button {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+</style>
+
+<div class="wishlist-container">
+  <h2>My Wishlist</h2>
+
+  {% if wishlist_items %}
+    <div class="wishlist-grid">
+      {% for item in wishlist_items %}
+        <div class="wishlist-card">
+          <img src="{{ url_for('static', filename='uploads/' ~ item.product.image) }}" alt="{{ item.product.title }}">
+          <div class="wishlist-title">{{ item.product.title }}</div>
+          <div class="wishlist-price">Rs. {{ item.product.price }}</div>
+          <a href="{{ url_for('product_bp.product_detail', product_id=item.product.id) }}">
+            <button style="margin-top: 10px;">View</button>
+          </a>
+          <form method="POST" action="{{ url_for('product_bp.remove_from_watchlist', product_id=item.product.id) }}">
+            <button>Remove</button>
+          </form>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>Your wishlist is empty.</p>
+  {% endif %}
+</div>
+{% endblock %}
