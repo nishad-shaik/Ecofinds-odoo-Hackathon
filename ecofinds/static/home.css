@@ -313,5 +313,82 @@ body {
   }
 }
 
+.main-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.main-product-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #0001;
+}
+.product-gallery {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.product-gallery img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+.product-gallery img:hover {
+  box-shadow: 0 0 8px #1ab18855;
+  border: 1.5px solid #1ab188;
+}
+
+.carousel-container {
+  position: relative;
+  width: 300px; /* Adjust based on your layout */
+  height: 300px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-image {
+  width: 300px;
+  height: 300px;
+  flex-shrink: 0;
+  display: none;
+  object-fit: cover;
+}
+
+.carousel-image.active {
+  display: block;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
 
 
