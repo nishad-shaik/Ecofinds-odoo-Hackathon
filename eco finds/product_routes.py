@@ -8,7 +8,7 @@ product_bp = Blueprint('product_bp', __name__)
 @product_bp.route('/')
 def home():
     products = Product.query.order_by(Product.created_at.desc()).all()
-    return render_template('home.html', products=products)
+    return render_template('homepage.html', products=products)
 
 @product_bp.route('/product/<int:product_id>')
 def product_detail(product_id):

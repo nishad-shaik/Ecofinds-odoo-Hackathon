@@ -1,14 +1,12 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
 from config import Config
+from flask_login import LoginManager
+from models import db, User  # ✅ db & User from models
 
-# Initialize extensions
-db = SQLAlchemy()
+# Initialize login manager
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
-# Create Flask app
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -29,4 +27,16 @@ def create_app():
     app.register_blueprint(chat_bp)
     app.register_blueprint(admin_bp)
 
+    # ✅ Register user_loader here
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
     return app
+
+# Entry point
+if __name__ == '__main__':
+    app = create_app()
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
