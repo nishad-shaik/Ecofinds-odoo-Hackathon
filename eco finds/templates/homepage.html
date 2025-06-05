@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}EcoFinds - Home{% endblock %}
+{% block content %}
+<style>
+  .banner {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #0f4d3f;
+    color: white;
+  }
+
+  .banner h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .banner button {
+    background: white;
+    color: #0f4d3f;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  .section-title {
+    background-color: #f3b400;
+    color: black;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 40px auto 20px;
+    font-size: 18px;
+  }
+
+  .category-container, .products-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+
+  .category, .product {
+    text-align: center;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    width: 180px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .category img, .product img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .category div, .product div {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #0f4d3f;
+  }
+</style>
+
+<section class="banner">
+  <h1>Good Stuff. Great Vibes. Greener Choices.</h1>
+  <a href="{{ url_for('product_bp.add_product') }}">
+    <button>Sell Your Product</button>
+  </a>
+</section>
+
+<div style="text-align: center">
+  <div class="section-title">All Categories</div>
+</div>
+<div class="category-container">
+  <div class="category">
+    <img src="{{ url_for('static', filename='uploads/electronics.jpg') }}" alt="Electronics">
+    <div>ELECTRONICS</div>
+  </div>
+  <div class="category">
+    <img src="{{ url_for('static', filename='uploads/furniture.jpg') }}" alt="Furniture">
+    <div>FURNITURE</div>
+  </div>
+  <div class="category">
+    <img src="{{ url_for('static', filename='uploads/beauty.jpg') }}" alt="Beauty">
+    <div>BEAUTY PRODUCTS</div>
+  </div>
+</div>
+
+<div style="text-align: center">
+  <div class="section-title">New Arrivals</div>
+</div>
+<div class="products-container">
+  {% for product in products %}
+  <div class="product">
+    <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" alt="{{ product.title }}">
+    <div>{{ product.title }}</div>
+    <div>Rs. {{ product.price }}</div>
+    <a href="{{ url_for('product_bp.product_detail', product_id=product.id) }}">
+      <button style="margin-top: 10px; background: #0f4d3f; color: white; padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer;">View Product</button>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
